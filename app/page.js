@@ -59,7 +59,7 @@ export default function PortfolioDashboard() {
     }
 
     return (
-        <div className={`min-h-screen flex flex-col lg:flex-row ${themeClass} transition-colors duration-300`}>
+        <div className={`min-h-screen w-full flex flex-col lg:flex-row ${themeClass} transition-colors duration-300`}>
             {/* SIDEBAR */}
             {/* Mobile menu button */}
             <motion.button
@@ -77,7 +77,7 @@ export default function PortfolioDashboard() {
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className={`w-64 ${dark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'} border-r p-8 flex flex-col gap-8 sticky top-0 h-screen overflow-y-auto lg:relative fixed lg:translate-x-0 z-40 lg:z-0 ${
+                className={`w-full sm:w-64 ${dark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'} border-r p-6 sm:p-8 flex flex-col gap-8 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto lg:relative fixed lg:translate-x-0 z-40 lg:z-0 ${
                     sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 } lg:translate-x-0 transition-transform duration-300`}
             >
@@ -116,7 +116,7 @@ export default function PortfolioDashboard() {
             </motion.aside>
 
             {/* MAIN */}
-            <main className="flex-1 p-6 lg:p-8 overflow-y-auto w-full">
+            <main className="flex-1 w-full p-4 sm:p-6 lg:p-8 overflow-y-auto min-h-screen">
                 <Header route={route} stats={statsMock} />
 
                 <AnimatePresence mode="wait">
@@ -233,20 +233,20 @@ function Stat({ label, value }) {
 
 function Home({ projects, setRoute, showFeaturedProject, setShowFeaturedProject }) {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 w-full">
             <motion.section
-                className="col-span-1 lg:col-span-2"
+                className="col-span-1 lg:col-span-2 w-full"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, type: "spring", stiffness: 80 }}
             >
                 <motion.div 
-                    className="rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
+                    className="rounded-xl p-4 sm:p-6 lg:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d w-full"
                     whileHover={{ rotateY: 2, rotateX: -1 }}
                     style={{ transformStyle: "preserve-3d" }}
                 >
                     {/* Profile Section */}
-                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-8">
+                    <div className="flex flex-col gap-6 mb-6 sm:mb-8">
                         <div className="flex-shrink-0">
                             <motion.div
                                 className="relative w-32 h-32 rounded-lg overflow-hidden bg-gradient-to-br from-gray-700 to-gray-900 shadow-lg perspective card-3d"
@@ -298,14 +298,14 @@ function Home({ projects, setRoute, showFeaturedProject, setShowFeaturedProject 
                     </div>
 
                     <motion.div
-                        className="flex gap-3"
+                        className="flex flex-col sm:flex-row gap-3"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
                         <motion.button
                             onClick={() => setRoute('projects')}
-                            className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold hover:from-gray-900 hover:to-black transition shadow-lg shadow-gray-900/50 button-ripple hover-lift"
+                            className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold hover:from-gray-900 hover:to-black transition shadow-lg shadow-gray-900/50 button-ripple hover-lift text-sm sm:text-base"
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
                         >
@@ -313,7 +313,7 @@ function Home({ projects, setRoute, showFeaturedProject, setShowFeaturedProject 
                         </motion.button>
                         <motion.button
                             onClick={() => setRoute('contact')}
-                            className="px-6 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition hover-lift"
+                            className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition hover-lift text-sm sm:text-base"
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
                         >
@@ -390,18 +390,18 @@ function Home({ projects, setRoute, showFeaturedProject, setShowFeaturedProject 
             </motion.section>
 
             <motion.aside
-                className="col-span-1 lg:col-span-1"
+                className="col-span-1 lg:col-span-1 w-full"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, type: "spring", stiffness: 80, delay: 0.1 }}
             >
                 <motion.div 
-                    className="rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg h-fit perspective card-3d"
+                    className="rounded-xl p-4 sm:p-6 lg:p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg h-fit perspective card-3d w-full"
                     whileHover={{ rotateY: -2, rotateX: 1 }}
                     style={{ transformStyle: "preserve-3d" }}
                 >
-                    <h4 className="font-semibold text-lg">Core Skills</h4>
-                    <motion.ul className="mt-4 text-sm space-y-3">
+                    <h4 className="font-semibold text-base sm:text-lg">Core Skills</h4>
+                    <motion.ul className="mt-4 text-xs sm:text-sm space-y-2 sm:space-y-3">
                         {['PyTorch • TensorFlow', 'Computer Vision • NLP', 'MLOps • Docker', 'Transformers • BERT'].map((skill, i) => (
                             <motion.li
                                 key={i}
@@ -429,21 +429,21 @@ function Home({ projects, setRoute, showFeaturedProject, setShowFeaturedProject 
 
 function Dashboard({ stats, visitors, projects, onSelectProject }) {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
             <motion.div
-                className="col-span-1 lg:col-span-2 rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
+                className="col-span-1 lg:col-span-2 rounded-xl bg-white dark:bg-slate-900 p-4 sm:p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d w-full"
                 initial={{ opacity: 0, scale: 0.95, rotateX: -10 }}
                 animate={{ opacity: 1, scale: 1, rotateX: 0 }}
                 transition={{ type: "spring", stiffness: 80 }}
                 whileHover={{ rotateY: 1, rotateX: 0 }}
                 style={{ transformStyle: "preserve-3d" }}
             >
-                <h4 className="font-semibold text-lg">Traffic Analytics</h4>
-                <div style={{ height: 280 }} className="mt-4">
+                <h4 className="font-semibold text-base sm:text-lg">Traffic Analytics</h4>
+                <div style={{ height: 250 }} className="mt-4 sm:mt-6">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={visitors}>
-                            <XAxis dataKey="day" />
-                            <YAxis />
+                            <XAxis dataKey="day" tick={{fontSize: 12}} />
+                            <YAxis tick={{fontSize: 12}} />
                             <Tooltip />
                             <Line type="monotone" dataKey="visitors" strokeWidth={2} stroke="#374151" />
                         </LineChart>
@@ -452,45 +452,45 @@ function Dashboard({ stats, visitors, projects, onSelectProject }) {
             </motion.div>
 
             <motion.div
-                className="rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
+                className="rounded-xl bg-white dark:bg-slate-900 p-4 sm:p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d w-full"
                 initial={{ opacity: 0, scale: 0.95, rotateX: -10 }}
                 animate={{ opacity: 1, scale: 1, rotateX: 0 }}
                 transition={{ type: "spring", stiffness: 80, delay: 0.1 }}
                 whileHover={{ rotateY: -1, rotateX: 0 }}
                 style={{ transformStyle: "preserve-3d" }}
             >
-                <h4 className="font-semibold text-lg">Projects</h4>
-                <div className="mt-4">
+                <h4 className="font-semibold text-base sm:text-lg">Projects</h4>
+                <div className="mt-4 sm:mt-6">
                     <BarChartMini data={projects} onSelect={onSelectProject} />
                 </div>
             </motion.div>
 
             <motion.div
-                className="col-span-3 rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
+                className="col-span-1 lg:col-span-3 rounded-xl bg-white dark:bg-slate-900 p-4 sm:p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d w-full"
                 initial={{ opacity: 0, y: 20, rotateX: -10 }}
                 animate={{ opacity: 1, y: 0, rotateX: 0 }}
                 transition={{ type: "spring", stiffness: 80, delay: 0.2 }}
                 whileHover={{ rotateY: 1, rotateX: 0 }}
                 style={{ transformStyle: "preserve-3d" }}
             >
-                <h4 className="font-semibold text-lg mb-4">Recent Projects</h4>
-                <div className="grid md:grid-cols-3 gap-4">
+                <h4 className="font-semibold text-base sm:text-lg mb-4">Recent Projects</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {projects.map((p, i) => (
-                        <div key={p.id}>
+                        <div key={p.id} className="w-full">
                             <motion.div
-                                className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 h-full flex flex-col hover-lift perspective card-3d"
+                                className="p-3 sm:p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 h-full flex flex-col hover-lift perspective card-3d"
                                 initial={{ opacity: 0, y: 10, rotateY: -15 }}
                                 animate={{ opacity: 1, y: 0, rotateY: 0 }}
                                 transition={{ delay: 0.3 + i * 0.1, type: "spring", stiffness: 100 }}
                                 whileHover={{ scale: 1.02, rotateY: 5, rotateX: -2 }}
                                 style={{ transformStyle: "preserve-3d" }}
                             >
-                                <h5 className="font-semibold">{p.title}</h5>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 flex-1">{p.desc}</p>
-                                <div className="mt-4 flex gap-2">
+                                <h5 className="font-semibold text-sm sm:text-base">{p.title}</h5>
+                                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 flex-1">{p.desc}</p>
+                                <div className="mt-3 sm:mt-4 flex gap-2 flex-wrap">
                                     <motion.button
                                         onClick={() => onSelectProject(p)}
-                                        className="text-xs px-3 py-1.5 rounded bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-900 hover:to-black transition font-medium"
+                                        className="text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-900 hover:to-black transition font-medium"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                     >
@@ -498,7 +498,7 @@ function Dashboard({ stats, visitors, projects, onSelectProject }) {
                                     </motion.button>
                                     <motion.a
                                         href={p.live}
-                                        className="text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition font-medium"
+                                        className="text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition font-medium"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                     >
@@ -545,38 +545,38 @@ function ProjectsPage({ projects, onAdd, onUpdate, onDelete, selectedProject, se
     }
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
             <motion.div
-                className="col-span-1 lg:col-span-2 rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
+                className="col-span-1 lg:col-span-2 rounded-xl bg-white dark:bg-slate-900 p-4 sm:p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d w-full"
                 initial={{ opacity: 0, x: -20, rotateY: -10 }}
                 animate={{ opacity: 1, x: 0, rotateY: 0 }}
                 transition={{ type: "spring", stiffness: 80 }}
                 whileHover={{ rotateY: 2 }}
                 style={{ transformStyle: "preserve-3d" }}
             >
-                <h4 className="font-semibold text-lg mb-4">Projects</h4>
+                <h4 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">Projects</h4>
                 <div className="space-y-2 max-h-96 overflow-y-auto">
                     {projects.length === 0 ? (
-                        <p className="text-sm text-slate-500 py-8 text-center">No projects yet. Add one to get started!</p>
+                        <p className="text-xs sm:text-sm text-slate-500 py-8 text-center">No projects yet. Add one to get started!</p>
                     ) : (
                         projects.map((p, i) => (
                             <motion.div
                                 key={p.id}
-                            className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex justify-between items-start hover:border-gray-500 transition hover-lift perspective card-3d"
+                            className="p-3 sm:p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 hover:border-gray-500 transition hover-lift perspective card-3d"
                                 initial={{ opacity: 0, x: -10, rotateY: -15 }}
                                 animate={{ opacity: 1, x: 0, rotateY: 0 }}
                                 transition={{ delay: i * 0.05, type: "spring", stiffness: 100 }}
                                 whileHover={{ x: 4, rotateY: 3, rotateX: -1 }}
                                 style={{ transformStyle: "preserve-3d" }}
                             >
-                                <div className="flex-1">
-                                    <div className="font-semibold">{p.title}</div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">{p.desc}</div>
+                                <div className="flex-1 min-w-0">
+                                    <div className="font-semibold text-sm sm:text-base truncate">{p.title}</div>
+                                    <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{p.desc}</div>
                                 </div>
-                                <div className="flex gap-2 ml-4">
+                                <div className="flex gap-2 flex-shrink-0 w-full sm:w-auto">
                                     <motion.button
                                         onClick={() => setSelectedProject(p)}
-                                        className="px-2.5 py-1 rounded text-xs font-medium border border-slate-300 dark:border-slate-600 hover:border-gray-500 transition"
+                                        className="flex-1 sm:flex-initial px-2 sm:px-2.5 py-1 rounded text-xs font-medium border border-slate-300 dark:border-slate-600 hover:border-gray-500 transition"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                     >
@@ -584,7 +584,7 @@ function ProjectsPage({ projects, onAdd, onUpdate, onDelete, selectedProject, se
                                     </motion.button>
                                     <motion.button
                                         onClick={() => onDelete(p.id)}
-                                        className="px-2.5 py-1 rounded text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 transition"
+                                        className="flex-1 sm:flex-initial px-2 sm:px-2.5 py-1 rounded text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 transition"
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                     >
@@ -598,14 +598,14 @@ function ProjectsPage({ projects, onAdd, onUpdate, onDelete, selectedProject, se
             </motion.div>
 
             <motion.aside
-                className="rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg h-fit perspective card-3d"
+                className="rounded-xl bg-white dark:bg-slate-900 p-4 sm:p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg h-fit perspective card-3d w-full"
                 initial={{ opacity: 0, x: 20, rotateY: 10 }}
                 animate={{ opacity: 1, x: 0, rotateY: 0 }}
                 transition={{ type: "spring", stiffness: 80, delay: 0.1 }}
                 whileHover={{ rotateY: -2 }}
                 style={{ transformStyle: "preserve-3d" }}
             >
-                <h4 className="font-semibold text-lg mb-4">Add Project</h4>
+                <h4 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">Add Project</h4>
                 <form onSubmit={submit} className="space-y-3">
                     <div>
                         <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Title</label>
@@ -699,40 +699,40 @@ function ProjectEditor({ project, onSave }) {
 function About() {
     return (
         <motion.div
-            className="rounded-xl bg-white dark:bg-slate-900 p-6 lg:p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg max-w-4xl perspective card-3d"
+            className="rounded-xl bg-white dark:bg-slate-900 p-4 sm:p-6 lg:p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg w-full perspective card-3d"
             initial={{ opacity: 0, scale: 0.95, rotateX: -15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
             transition={{ type: "spring", stiffness: 80 }}
             whileHover={{ rotateX: 2, rotateY: 1 }}
             style={{ transformStyle: "preserve-3d" }}
         >
-            <h3 className="text-2xl font-bold">About Me</h3>
-            <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+            <h3 className="text-xl sm:text-2xl font-bold">About Me</h3>
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 I'm an AI/ML engineer with expertise in deep learning, computer vision, and natural language processing. My work focuses on building state-of-the-art models, optimizing neural architectures, and deploying scalable ML systems in production environments.
             </p>
 
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <motion.div
                     initial={{ opacity: 0, x: -15, rotateY: -20 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
                     transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
-                    className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover-lift perspective card-3d"
+                    className="p-3 sm:p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover-lift perspective card-3d"
                     whileHover={{ rotateY: 10, rotateX: -5 }}
                     style={{ transformStyle: "preserve-3d" }}
                 >
-                    <h5 className="font-semibold text-gray-800 dark:text-gray-300">Education</h5>
-                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Computer Science & AI Specialization</p>
+                    <h5 className="font-semibold text-sm sm:text-base text-gray-800 dark:text-gray-300">Education</h5>
+                    <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Computer Science & AI Specialization</p>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, x: 15, rotateY: 20 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
-                    className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover-lift perspective card-3d"
+                    className="p-3 sm:p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover-lift perspective card-3d"
                     whileHover={{ rotateY: -10, rotateX: -5 }}
                     style={{ transformStyle: "preserve-3d" }}
                 >
-                    <h5 className="font-semibold text-gray-800 dark:text-gray-300">Focus Areas</h5>
-                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Deep Learning • Vision • NLP</p>
+                    <h5 className="font-semibold text-sm sm:text-base text-gray-800 dark:text-gray-300">Focus Areas</h5>
+                    <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Deep Learning • Vision • NLP</p>
                 </motion.div>
             </div>
         </motion.div>
@@ -742,18 +742,18 @@ function About() {
 function Contact() {
     return (
         <motion.div
-            className="rounded-xl bg-white dark:bg-slate-900 p-6 lg:p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg max-w-2xl perspective card-3d"
+            className="rounded-xl bg-white dark:bg-slate-900 p-4 sm:p-6 lg:p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg w-full perspective card-3d"
             initial={{ opacity: 0, scale: 0.95, rotateX: 15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
             transition={{ type: "spring", stiffness: 80 }}
             whileHover={{ rotateX: -2, rotateY: 1 }}
             style={{ transformStyle: "preserve-3d" }}
         >
-            <h3 className="text-2xl font-bold">Get In Touch</h3>
-            <p className="mt-2 text-slate-600 dark:text-slate-400">Feel free to reach out for collaborations or just a friendly hello.</p>
+            <h3 className="text-xl sm:text-2xl font-bold">Get In Touch</h3>
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Feel free to reach out for collaborations or just a friendly hello.</p>
 
             <motion.div
-                className="mt-6"
+                className="mt-4 sm:mt-6"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -762,7 +762,7 @@ function Contact() {
                     href="https://www.linkedin.com/in/jinto-johnson-c-bb11b1271"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold hover:from-gray-900 hover:to-black transition shadow-lg shadow-gray-900/50 button-ripple hover-lift"
+                    className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold hover:from-gray-900 hover:to-black transition shadow-lg shadow-gray-900/50 button-ripple hover-lift text-xs sm:text-sm"
                     whileHover={{ scale: 1.08, y: -3 }}
                     whileTap={{ scale: 0.95 }}
                 >
@@ -773,37 +773,37 @@ function Contact() {
                 </motion.a>
             </motion.div>
 
-            <form className="mt-8 grid gap-4">
+            <form className="mt-6 sm:mt-8 grid gap-3 sm:gap-4">
                 <div>
-                    <label className="text-sm font-medium text-slate-600 dark:text-slate-400">Name</label>
+                    <label className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Name</label>
                     <motion.input
                         placeholder="Your name"
-                        className="w-full mt-1.5 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-gray-500 outline-none transition"
+                        className="w-full mt-1 sm:mt-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-gray-500 outline-none transition text-sm"
                         whileFocus={{ scale: 1.01, y: -2 }}
                     />
                 </div>
                 <div>
-                    <label className="text-sm font-medium text-slate-600 dark:text-slate-400">Email</label>
+                    <label className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Email</label>
                     <motion.input
                         type="email"
                         placeholder="your@email.com"
-                        className="w-full mt-1.5 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-gray-500 outline-none transition"
+                        className="w-full mt-1 sm:mt-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-gray-500 outline-none transition text-sm"
                         whileFocus={{ scale: 1.01, y: -2 }}
                     />
                 </div>
                 <div>
-                    <label className="text-sm font-medium text-slate-600 dark:text-slate-400">Message</label>
+                    <label className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Message</label>
                     <motion.textarea
                         placeholder="Your message here..."
-                        className="w-full mt-1.5 px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-gray-500 outline-none resize-none transition"
+                        className="w-full mt-1 sm:mt-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-gray-500 outline-none resize-none transition text-sm"
                         rows="4"
                         whileFocus={{ scale: 1.01, y: -2 }}
                     />
                 </div>
-                <div className="flex gap-3 pt-2">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
                     <motion.button
                         type="submit"
-                        className="flex-1 px-6 py-2.5 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold hover:from-gray-900 hover:to-black transition shadow-lg shadow-gray-900/30 button-ripple hover-lift"
+                        className="flex-1 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold hover:from-gray-900 hover:to-black transition shadow-lg shadow-gray-900/30 button-ripple hover-lift text-sm"
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                     >
@@ -811,7 +811,7 @@ function Contact() {
                     </motion.button>
                     <motion.button
                         type="reset"
-                        className="flex-1 px-6 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition hover-lift"
+                        className="flex-1 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition hover-lift text-sm"
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                     >
