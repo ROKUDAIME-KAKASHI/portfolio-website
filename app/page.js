@@ -45,6 +45,14 @@ export default function PortfolioDashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const themeClass = dark ? 'bg-slate-900 text-slate-100' : 'bg-white text-slate-900';
+    
+    const navItems = [
+        { name: 'Home', icon: <User size={20} />, route: 'home' },
+        { name: 'Dashboard', icon: <Grid size={20} />, route: 'dashboard' },
+        { name: 'Projects', icon: <Briefcase size={20} />, route: 'projects' },
+        { name: 'About', icon: <FileText size={20} />, route: 'about' },
+        { name: 'Contact', icon: <Mail size={20} />, route: 'contact' },
+    ];
 
     // PROJECT CRUD
     function addProject(payload) {
@@ -60,19 +68,24 @@ export default function PortfolioDashboard() {
 
     return (
         <div className={`min-h-screen w-full flex flex-col lg:flex-row ${themeClass} transition-colors duration-300`}>
-            {/* SIDEBAR */}
-            {/* Mobile menu button */}
+            {/* SIDEBAR - MOBILE BUTTON */}
             <motion.button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className={`lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg ${dark ? 'bg-slate-800 hover:bg-slate-700' : 'bg-slate-100 hover:bg-slate-200'} transition`}
+                className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl ${dark ? 'bg-slate-800 hover:bg-slate-700' : 'bg-slate-100 hover:bg-slate-200'} transition`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
             >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <motion.div
+                    animate={{ rotate: sidebarOpen ? 90 : 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </motion.div>
             </motion.button>
 
+            {/* SIDEBAR - DESKTOP & MOBILE */}
             <motion.aside
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -88,7 +101,7 @@ export default function PortfolioDashboard() {
                     transition={{ delay: 0.1 }}
                 >
                     <div className="flex-1">
-                        <h1 className="text-xl font-bold tracking-tight">Jinto Johnson</h1>
+                        <h1 className="text-lg sm:text-xl font-bold tracking-tight">Jinto Johnson</h1>
                         <p className="text-xs text-slate-500 mt-1">AI/ML Engineer</p>
                     </div>
                     <motion.button
@@ -103,11 +116,29 @@ export default function PortfolioDashboard() {
                 </motion.div>
 
                 <nav className="flex flex-col gap-1" onClick={() => setSidebarOpen(false)}>
-                    <NavButton active={route === 'home'} onClick={() => setRoute('home')} icon={<User size={18} />}>Home</NavButton>
-                    <NavButton active={route === 'dashboard'} onClick={() => setRoute('dashboard')} icon={<Grid size={18} />}>Dashboard</NavButton>
-                    <NavButton active={route === 'projects'} onClick={() => setRoute('projects')} icon={<Briefcase size={18} />}>Projects</NavButton>
-                    <NavButton active={route === 'about'} onClick={() => setRoute('about')} icon={<FileText size={18} />}>About</NavButton>
-                    <NavButton active={route === 'contact'} onClick={() => setRoute('contact')} icon={<Mail size={18} />}>Contact</NavButton>
+                    {navItems.map((item, i) => (
+                        <motion.button
+                            key={item.route}
+                            onClick={() => setRoute(item.route)}
+                            className={`px-4 py-3 rounded-lg flex items-center gap-3 transition ${
+                                route === item.route
+                                    ? dark
+                                        ? 'bg-slate-800 text-white'
+                                        : 'bg-slate-100 text-slate-900'
+                                    : dark
+                                        ? 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-300'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                            }`}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.15 + i * 0.08 }}
+                            whileHover={{ x: 4 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            {item.icon}
+                            <span className="text-sm font-medium">{item.name}</span>
+                        </motion.button>
+                    ))}
                 </nav>
 
                 <div className={`mt-auto pt-6 border-t ${dark ? 'border-slate-800' : 'border-slate-200'} text-xs text-slate-500`}>
@@ -149,30 +180,6 @@ export default function PortfolioDashboard() {
 
 
 // ---------- Small components ----------
-function NavButton({ children, active, onClick, icon }) {
-    return (
-        <motion.button
-            onClick={onClick}
-            className={`flex items-center gap-3 py-2.5 px-4 rounded-lg transition font-medium text-sm ${
-                active 
-                    ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg shadow-gray-900/50' 
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800'
-            }`}
-            whileHover={{ x: 6, scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            style={{ perspective: 1000 }}
-        >
-            <motion.span
-                whileHover={{ rotate: 10 }}
-                transition={{ type: "spring", stiffness: 300 }}
-            >
-                {icon}
-            </motion.span>
-            <span>{children}</span>
-        </motion.button>
-    );
-}
-
 function Header({ route, stats }) {
     return (
         <motion.div
