@@ -41,8 +41,8 @@ export default function PortfolioDashboard() {
     const [route, setRoute] = useState('home');
     const [projects, setProjects] = useState(initialProjects);
     const [selectedProject, setSelectedProject] = useState(null);
-
-
+    const [showFeaturedProject, setShowFeaturedProject] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const themeClass = dark ? 'bg-slate-900 text-slate-100' : 'bg-white text-slate-900';
 
@@ -59,13 +59,27 @@ export default function PortfolioDashboard() {
     }
 
     return (
-        <div className={`min-h-screen flex ${themeClass} transition-colors duration-300`}>
+        <div className={`min-h-screen flex flex-col lg:flex-row ${themeClass} transition-colors duration-300`}>
             {/* SIDEBAR */}
+            {/* Mobile menu button */}
+            <motion.button
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className={`lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg ${dark ? 'bg-slate-800 hover:bg-slate-700' : 'bg-slate-100 hover:bg-slate-200'} transition`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+            >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </motion.button>
+
             <motion.aside
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className={`w-64 ${dark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'} border-r p-8 flex flex-col gap-8 sticky top-0 h-screen overflow-y-auto`}
+                className={`w-64 ${dark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'} border-r p-8 flex flex-col gap-8 sticky top-0 h-screen overflow-y-auto lg:relative fixed lg:translate-x-0 z-40 lg:z-0 ${
+                    sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                } lg:translate-x-0 transition-transform duration-300`}
             >
                 <motion.div
                     className="flex items-center justify-between gap-4"
@@ -88,7 +102,7 @@ export default function PortfolioDashboard() {
                     </motion.button>
                 </motion.div>
 
-                <nav className="flex flex-col gap-1">
+                <nav className="flex flex-col gap-1" onClick={() => setSidebarOpen(false)}>
                     <NavButton active={route === 'home'} onClick={() => setRoute('home')} icon={<User size={18} />}>Home</NavButton>
                     <NavButton active={route === 'dashboard'} onClick={() => setRoute('dashboard')} icon={<Grid size={18} />}>Dashboard</NavButton>
                     <NavButton active={route === 'projects'} onClick={() => setRoute('projects')} icon={<Briefcase size={18} />}>Projects</NavButton>
@@ -102,7 +116,7 @@ export default function PortfolioDashboard() {
             </motion.aside>
 
             {/* MAIN */}
-            <main className="flex-1 p-8 overflow-y-auto">
+            <main className="flex-1 p-6 lg:p-8 overflow-y-auto w-full">
                 <Header route={route} stats={statsMock} />
 
                 <AnimatePresence mode="wait">
@@ -162,7 +176,7 @@ function NavButton({ children, active, onClick, icon }) {
 function Header({ route, stats }) {
     return (
         <motion.div
-            className="flex items-center justify-between"
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -172,12 +186,12 @@ function Header({ route, stats }) {
                 <p className="text-sm text-slate-500 mt-1">Welcome to your portfolio dashboard</p>
             </div>
             <motion.div
-                className="flex gap-3 items-center"
+                className="flex flex-wrap gap-3 items-center"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
             >
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                     <Stat label="Models" value={stats.modelsDeployed} />
                     <Stat label="Datasets" value={stats.datasets} />
                     <Stat label="Accuracy" value={`${stats.accuracy}%`} />
@@ -190,7 +204,7 @@ function Header({ route, stats }) {
 function Stat({ label, value }) {
     return (
         <motion.div
-            className="bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-lg text-center border border-slate-200 dark:border-slate-700 hover-lift depth-shadow-lg cursor-pointer perspective"
+            className="bg-slate-100 dark:bg-slate-800 px-3 py-2 lg:px-4 lg:py-3 rounded-lg text-center border border-slate-200 dark:border-slate-700 hover-lift depth-shadow-lg cursor-pointer perspective"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 100 }}
@@ -200,11 +214,11 @@ function Stat({ label, value }) {
             }}
             style={{ transformStyle: "preserve-3d" }}
         >
-            <motion.div className="text-xs text-slate-600 dark:text-slate-400 font-medium" style={{ y: 0 }}>
+            <motion.div className="text-xs text-slate-600 dark:text-slate-400 font-medium truncate" style={{ y: 0 }}>
                 {label}
             </motion.div>
             <motion.div 
-                className="text-2xl font-bold mt-2 gradient-text"
+                className="text-lg lg:text-2xl font-bold mt-2 gradient-text"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
@@ -219,9 +233,9 @@ function Stat({ label, value }) {
 
 function Home({ projects, setRoute }) {
     return (
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             <motion.section
-                className="col-span-2"
+                className="col-span-1 lg:col-span-2"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, type: "spring", stiffness: 80 }}
@@ -232,7 +246,7 @@ function Home({ projects, setRoute }) {
                     style={{ transformStyle: "preserve-3d" }}
                 >
                     {/* Profile Section */}
-                    <div className="flex items-start gap-6 mb-8">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-8">
                         <div className="flex-shrink-0">
                             <motion.div
                                 className="relative w-32 h-32 rounded-lg overflow-hidden bg-gradient-to-br from-gray-700 to-gray-900 shadow-lg perspective card-3d"
@@ -313,48 +327,70 @@ function Home({ projects, setRoute }) {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
                     >
-                        <h4 className="font-semibold flex items-center gap-2 mb-4">
-                            <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 3, repeat: Infinity }}
-                                className="text-gray-700 dark:text-gray-400"
+                        <div className="flex items-center justify-between mb-4">
+                            <h4 className="font-semibold flex items-center gap-2">
+                                <motion.div
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 3, repeat: Infinity }}
+                                    className="text-gray-700 dark:text-gray-400"
+                                >
+                                    <Sparkles size={18} />
+                                </motion.div>
+                                Featured Project
+                            </h4>
+                            <motion.button
+                                onClick={() => setShowFeaturedProject(!showFeaturedProject)}
+                                className="px-3 py-1 rounded text-xs font-medium bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 transition"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <Sparkles size={18} />
-                            </motion.div>
-                            Featured Project
-                        </h4>
-                        <motion.div
-                            className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover-lift depth-shadow perspective card-3d"
-                            whileHover={{ 
-                                scale: 1.02,
-                                rotateY: 3,
-                                rotateX: -2
-                            }}
-                            style={{ transformStyle: "preserve-3d" }}
-                        >
-                            <h5 className="font-bold">{projects[0].title}</h5>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{projects[0].desc}</p>
-                            <div className="mt-3 flex gap-2 flex-wrap">
-                                {projects[0].tags.map((t, i) => (
-                                    <motion.span
-                                        key={t}
-                                        className="px-2.5 py-1 rounded text-xs font-medium bg-gray-200 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300"
-                                        initial={{ opacity: 0, scale: 0 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.5 + i * 0.05, type: "spring", stiffness: 200 }}
-                                        whileHover={{ scale: 1.1 }}
+                                {showFeaturedProject ? 'Hide' : 'Show'}
+                            </motion.button>
+                        </div>
+                        <AnimatePresence>
+                            {showFeaturedProject && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                >
+                                    <motion.div
+                                        className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover-lift depth-shadow perspective card-3d"
+                                        whileHover={{ 
+                                            scale: 1.02,
+                                            rotateY: 3,
+                                            rotateX: -2
+                                        }}
+                                        style={{ transformStyle: "preserve-3d" }}
                                     >
-                                        {t}
-                                    </motion.span>
-                                ))}
-                            </div>
-                        </motion.div>
+                                        <h5 className="font-bold">{projects[0].title}</h5>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{projects[0].desc}</p>
+                                        <div className="mt-3 flex gap-2 flex-wrap">
+                                            {projects[0].tags.map((t, i) => (
+                                                <motion.span
+                                                    key={t}
+                                                    className="px-2.5 py-1 rounded text-xs font-medium bg-gray-200 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300"
+                                                    initial={{ opacity: 0, scale: 0 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: 0.5 + i * 0.05, type: "spring", stiffness: 200 }}
+                                                    whileHover={{ scale: 1.1 }}
+                                                >
+                                                    {t}
+                                                </motion.span>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </motion.div>
                 </motion.div>
             </motion.section>
 
             <motion.aside
-                className="col-span-1"
+                className="col-span-1 lg:col-span-1"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, type: "spring", stiffness: 80, delay: 0.1 }}
@@ -393,9 +429,9 @@ function Home({ projects, setRoute }) {
 
 function Dashboard({ stats, visitors, projects, onSelectProject }) {
     return (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <motion.div
-                className="col-span-2 rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
+                className="col-span-1 lg:col-span-2 rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
                 initial={{ opacity: 0, scale: 0.95, rotateX: -10 }}
                 animate={{ opacity: 1, scale: 1, rotateX: 0 }}
                 transition={{ type: "spring", stiffness: 80 }}
@@ -509,9 +545,9 @@ function ProjectsPage({ projects, onAdd, onUpdate, onDelete, selectedProject, se
     }
 
     return (
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <motion.div
-                className="col-span-2 rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
+                className="col-span-1 lg:col-span-2 rounded-xl bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg perspective card-3d"
                 initial={{ opacity: 0, x: -20, rotateY: -10 }}
                 animate={{ opacity: 1, x: 0, rotateY: 0 }}
                 transition={{ type: "spring", stiffness: 80 }}
@@ -663,7 +699,7 @@ function ProjectEditor({ project, onSave }) {
 function About() {
     return (
         <motion.div
-            className="rounded-xl bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg max-w-4xl perspective card-3d"
+            className="rounded-xl bg-white dark:bg-slate-900 p-6 lg:p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg max-w-4xl perspective card-3d"
             initial={{ opacity: 0, scale: 0.95, rotateX: -15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
             transition={{ type: "spring", stiffness: 80 }}
@@ -675,7 +711,7 @@ function About() {
                 I'm an AI/ML engineer with expertise in deep learning, computer vision, and natural language processing. My work focuses on building state-of-the-art models, optimizing neural architectures, and deploying scalable ML systems in production environments.
             </p>
 
-            <div className="mt-8 grid grid-cols-2 gap-6">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <motion.div
                     initial={{ opacity: 0, x: -15, rotateY: -20 }}
                     animate={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -706,7 +742,7 @@ function About() {
 function Contact() {
     return (
         <motion.div
-            className="rounded-xl bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg max-w-2xl perspective card-3d"
+            className="rounded-xl bg-white dark:bg-slate-900 p-6 lg:p-8 border border-slate-200 dark:border-slate-800 hover-lift depth-shadow-lg max-w-2xl perspective card-3d"
             initial={{ opacity: 0, scale: 0.95, rotateX: 15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
             transition={{ type: "spring", stiffness: 80 }}
