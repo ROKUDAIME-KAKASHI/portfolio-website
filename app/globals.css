@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 15, 23, 42;
+        --background-end-rgb: 15, 23, 42;
+    }
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-start-rgb));
+}
+
+/* Smooth Transitions */
+* {
+    @apply transition-colors duration-200;
+}
+
+/* Input Focus States */
+input:focus,
+textarea:focus {
+    @apply ring-2 ring-gray-500/20;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(203, 213, 225);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(148, 163, 184);
+}
+
+@media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar-thumb {
+        background: rgb(71, 85, 105);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(100, 116, 139);
+    }
+}
+
+/* 3D Card Effects */
+.card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.card-3d-inner {
+    transform-style: preserve-3d;
+}
+
+/* Hover Glow Effect */
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(107, 114, 128, 0.3), 0 4px 20px rgba(107, 114, 128, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(107, 114, 128, 0.5), 0 8px 30px rgba(107, 114, 128, 0.2);
+    }
+}
+
+.glow-hover {
+    transition: box-shadow 0.3s ease;
+}
+
+.glow-hover:hover {
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Gradient Background Animation */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animated-gradient {
+    background: linear-gradient(270deg, #6b7280, #4b5563, #374151, #6b7280);
+    background-size: 400% 400%;
+    animation: gradient-shift 8s ease infinite;
+}
+
+/* Floating Animation */
+@keyframes float-smooth {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.float-smooth {
+    animation: float-smooth 3s ease-in-out infinite;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 3s infinite;
+}
+
+/* Pulse Scale Animation */
+@keyframes pulse-scale {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+}
+
+.pulse-scale {
+    animation: pulse-scale 2s ease-in-out infinite;
+}
+
+/* Gentle Rotate Animation */
+@keyframes gentle-rotate {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    100% {
+        transform: rotateX(5deg) rotateY(5deg);
+    }
+}
+
+/* Perspective */
+.perspective {
+    perspective: 1000px;
+}
+
+/* Depth Shadow */
+.depth-shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+                0 4px 8px rgba(0, 0, 0, 0.08),
+                0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
+.depth-shadow-lg {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+                0 8px 16px rgba(0, 0, 0, 0.1),
+                0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Interactive hover lift */
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+                0 12px 24px rgba(107, 114, 128, 0.15);
+}
+
+/* Button ripple effect */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.button-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.button-ripple::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+    opacity: 0;
+}
+
+/* Gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #6b7280, #4b5563, #374151);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Card entrance animation */
+@keyframes slide-up-fade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up-fade {
+    animation: slide-up-fade 0.5s ease-out;
+}
