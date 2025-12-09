@@ -128,7 +128,7 @@ export default function PortfolioDashboard() {
                         transition={{ duration: 0.2 }}
                         className="mt-8"
                     >
-                        {route === 'home' && <Home projects={projects} setRoute={setRoute} />}
+                        {route === 'home' && <Home projects={projects} setRoute={setRoute} showFeaturedProject={showFeaturedProject} setShowFeaturedProject={setShowFeaturedProject} />}
                         {route === 'dashboard' && (
                             <Dashboard stats={statsMock} visitors={visitorsSeries} projects={projects} onSelectProject={p => {
                                 setSelectedProject(p); setRoute('projects');
@@ -231,7 +231,7 @@ function Stat({ label, value }) {
 
 
 
-function Home({ projects, setRoute }) {
+function Home({ projects, setRoute, showFeaturedProject, setShowFeaturedProject }) {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             <motion.section
